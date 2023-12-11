@@ -40,6 +40,8 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - SetNicknameBillboard
+  - Build
+  - RPC_Build
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

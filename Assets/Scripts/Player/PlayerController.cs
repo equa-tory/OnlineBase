@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool facingRight;
 
     [Header("References")]
-    [SerializeField] private InputManager input;
+    public InputManager input;
     private Rigidbody2D rb;
 
     [Header("Photon")]

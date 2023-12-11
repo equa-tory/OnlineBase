@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     public Vector2 movementInput;
 
     public bool i_sprint;
+    public bool i_build;
     
 
     private void Awake()
@@ -29,6 +30,8 @@ public class InputManager : MonoBehaviour
             input.Action.Sprint.performed += ctx => i_sprint = true;
             input.Action.Sprint.canceled += ctx => i_sprint = false;
 
+            input.Action.Build.performed += ctx => i_build = true;
+
         }
 
         input.Enable();
@@ -46,6 +49,8 @@ public class InputManager : MonoBehaviour
 
     public void AllInputs()
     {
+
+        if(i_build) i_build = false;
 
     }
 

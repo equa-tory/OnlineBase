@@ -158,6 +158,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Build"",
+                    ""type"": ""Button"",
+                    ""id"": ""2034c362-de28-45fd-80f5-cbadf9bb01b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -204,6 +213,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83c687ce-0edf-43f1-94b9-dcf4b3019952"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Build"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4ffe98f-2cea-46ca-9a6e-a00b6823a581"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Build"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -218,6 +249,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Action = asset.FindActionMap("Action", throwIfNotFound: true);
         m_Action_Sprint = m_Action.FindAction("Sprint", throwIfNotFound: true);
         m_Action_Jump = m_Action.FindAction("Jump", throwIfNotFound: true);
+        m_Action_Build = m_Action.FindAction("Build", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -335,12 +367,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IActionActions> m_ActionActionsCallbackInterfaces = new List<IActionActions>();
     private readonly InputAction m_Action_Sprint;
     private readonly InputAction m_Action_Jump;
+    private readonly InputAction m_Action_Build;
     public struct ActionActions
     {
         private @PlayerInput m_Wrapper;
         public ActionActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Sprint => m_Wrapper.m_Action_Sprint;
         public InputAction @Jump => m_Wrapper.m_Action_Jump;
+        public InputAction @Build => m_Wrapper.m_Action_Build;
         public InputActionMap Get() { return m_Wrapper.m_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -356,6 +390,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Build.started += instance.OnBuild;
+            @Build.performed += instance.OnBuild;
+            @Build.canceled += instance.OnBuild;
         }
 
         private void UnregisterCallbacks(IActionActions instance)
@@ -366,6 +403,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Build.started -= instance.OnBuild;
+            @Build.performed -= instance.OnBuild;
+            @Build.canceled -= instance.OnBuild;
         }
 
         public void RemoveCallbacks(IActionActions instance)
@@ -392,5 +432,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnBuild(InputAction.CallbackContext context);
     }
 }
